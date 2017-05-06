@@ -44,6 +44,28 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy((username, password, next) => {
+  let User = mongoose.model('User');
+  User.findOne({ email: username })
+    .then(user => {
+      if (!user) {
+        next(new Error('Could not find user in database'));
+      } else {
+        comparePassword(password, user.password)
+          .then(result => {
+            if (result) {
+              next(null, user);
+            } else {
+              next(new Error('Invalid username / password combo'));
+            }
+          })
+          .catch(next);
+      }
+    })
+    .catch(next);
+}));
 // error handlers
 
 // development error handler
