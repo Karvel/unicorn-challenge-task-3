@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+let Promise = require('bluebird');
 
 var express = require('express');
 var path = require('path');
