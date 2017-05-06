@@ -21,6 +21,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var home = require('./routes/home');
 
+var comparePassword = Promise.promisify(require('bcrypt').compare);
 var app = express();
 
 // view engine setup
@@ -68,6 +69,15 @@ passport.use(new LocalStrategy((username, password, next) => {
     })
     .catch(next);
 }));
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+
 // error handlers
 
 // development error handler
