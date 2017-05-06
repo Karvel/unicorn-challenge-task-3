@@ -1,6 +1,10 @@
 let mongoose = require('mongoose');
 let Promise = require('bluebird');
 
+mongoose.connect(process.env.MONGO_URI);
+let db = mongoose.connection;
+db.on('open', () => console.log('database connected'));
+mongoose.Promise = Promise;
 
 require('./models/user');
 
