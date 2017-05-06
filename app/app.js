@@ -1,6 +1,9 @@
 let mongoose = require('mongoose');
 let Promise = require('bluebird');
 
+
+require('./models/user');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
